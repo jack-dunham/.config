@@ -1,0 +1,10 @@
+nvim/plug.vim/
+nvim/plugin/
+StardewValley/
+coc/
+Ranger/
+goneovim/
+*.DS_store
+configstore/
+gtk-2.0/
+iterm2/

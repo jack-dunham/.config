@@ -48,8 +48,9 @@ require('packer').startup(function(use)
 	use 'onsails/lspkind-nvim'
 	use 'nvim-treesitter/nvim-treesitter'
 	-- File tree
-	use {'ms-jpq/chadtree',
-		branch = 'chad',
+	use {'kyazdani42/nvim-tree.lua',
+		requires = 'kyazdani42/nvim-web-devicons',
+		config = function() require'nvim-tree'.setup {} end
 	}
 	use {'folke/which-key.nvim',
 		config = function() require('keybinds') end

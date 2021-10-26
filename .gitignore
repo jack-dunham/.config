@@ -1,3 +1,4 @@
 plug.vim/
 plugin/
 *.DS_store
+lsp-julia/

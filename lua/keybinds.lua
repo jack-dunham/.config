@@ -34,7 +34,3 @@ wk.register({
 		g = {"<cmd>Git<cr>", "Status"},
 	}
 }, {prefix = "<leader>"})
-
-wk.register({
-	["g?"] = {"fugitive_g?", "Open keybind help"}
-},{})

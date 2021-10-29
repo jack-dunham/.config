@@ -97,7 +97,7 @@ require('lspkind').init({
       Interface = "",
       Module = "",
       Property = "ﰠ",
-      Unit = "塞",
+      Unit = "塞",
       Value = "",
       Enum = "",
       Keyword = "",
@@ -187,3 +187,5 @@ ToggleMouse = function()
 end
 
 vim.api.nvim_set_keymap('n', '<F10>', '<cmd>lua ToggleMouse()<cr>', { noremap = true })
+
+

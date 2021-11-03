@@ -187,5 +187,3 @@ ToggleMouse = function()
 end
 
 vim.api.nvim_set_keymap('n', '<F10>', '<cmd>lua ToggleMouse()<cr>', { noremap = true })
-
-

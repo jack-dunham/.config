@@ -36,6 +36,7 @@ require('packer').startup(function(use)
 	}
 	use 'lervag/vimtex'
 	use 'L3MON4D3/LuaSnip'
+	use 'rafamadriz/friendly-snippets'
 	-- Completion engine
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
@@ -57,6 +58,7 @@ require('packer').startup(function(use)
 	}
 	use 'JuliaEditorSupport/julia-vim'
 	use 'axvr/zepl.vim'
+	use 'iamcco/markdown-preview.nvim'
 	--Bootstrap packer
 	if packer_boostrap then
 		require('packer').sync()
@@ -71,7 +73,7 @@ require('settings')
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"julia", "lua", "latex"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {"julia", "lua"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -147,6 +149,10 @@ require('lspconfig')['sumneko_lua'].setup {
 require('lspconfig')['julials'].setup {
     	capabilities = capabilities
 }
+require('lspconfig')['texlab'].setup {
+    	capabilities = capabilities
+}
+
 
 local lspkind = require('lspkind')
 cmp.setup {

@@ -1,11 +1,11 @@
 local lualine = require('lualine')
-lualine.theme = 'onedark'
+lualine.theme = 'auto'
 lualine.setup {
 	options = {
 	      	icons_enabled = true,
-		theme = 'onedark',
-	      	section_separators = {'', ''},
-	      	component_separators = {'', ''},
+		theme = 'auto',
+	      	section_separators = {left = '', right = ''},
+	      	component_separators = {left = '', right = ''},
 		disabled_filetypes = {}
 	},
 	sections = {

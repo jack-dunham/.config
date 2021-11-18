@@ -41,11 +41,11 @@ require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/nvim-cmp'
-	-- lsp
 	use 'williamboman/nvim-lsp-installer'
 	use {'neovim/nvim-lspconfig',
 		config = function() require('nvim-lspconfig') end
 	}
+	-- LSP
 	use 'onsails/lspkind-nvim'
 	use 'nvim-treesitter/nvim-treesitter'
 	-- File tree
@@ -59,6 +59,7 @@ require('packer').startup(function(use)
 	use 'JuliaEditorSupport/julia-vim'
 	use 'axvr/zepl.vim'
 	use 'iamcco/markdown-preview.nvim'
+	use 'echasnovski/mini.nvim'
 	--Bootstrap packer
 	if packer_boostrap then
 		require('packer').sync()
@@ -67,6 +68,14 @@ end)
 -------------
 -- CONFIGS --
 -------------
+
+-- require('mini.statusline').setup({})
+require('mini.surround').setup({})
+require('mini.misc').setup({})
+require('mini.pairs').setup({})
+require('mini.sessions').setup({})
+require('mini.starter').setup({})
+require('mini.trailspace').setup({})
 
 require('settings')
 

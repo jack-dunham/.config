@@ -5,14 +5,8 @@ wk.register({
 		name = "open",
 		t = {"<cmd>NvimTreeToggle<cr>", "Open/close file tree"}
 	},
-	["-"] = {"<cmd>NvimTreeFocus<cr>", "Focus file tree"}
+	["-"] = {"<cmd>NvimTreeFocus<cr>", "(Un)focus file tree"}
 }, {prefix = "<leader>"})
-
-wk.register({
-	["g?"] = {"Toggle help"},
-	["<leader>-"] = {"<cmd>wincmd p<cr>", "Unfocus file tree"}
-}, {buffer = 2})
-
 
 wk.register({
 	p = {
@@ -32,5 +26,19 @@ wk.register({
 	g = {
 		name = "git",
 		g = {"<cmd>Git<cr>", "Status"},
+	}
+}, {prefix = "<leader>"})
+
+-- Telescope
+wk.register({
+	f = {
+		name = "find",
+		f = {"<cmd>Telescope find_files<cr>", "Files"},
+		g = {"<cmd>Telescope live_grep<cr>", "String (live)"},
+		F = {"<cmd>Telescope file_browser<cr>", "File browser"},
+		b = {"<cmd>Telescope buffers<cr>", "Buffers"},
+		r = {"<cmd>Telescope registers<cr>", "Registers"},
+		k = {"<cmd>Telescope keymaps<cr>", "Keymaps"},
+		p = {"<cmd>lua require('telescope').extensions.project.project{display_type='full'}<cr>", "Projects"}
 	}
 }, {prefix = "<leader>"})

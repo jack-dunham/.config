@@ -16,11 +16,19 @@ require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	-- Plenary
 	use 'nvim-lua/plenary.nvim'
+	use {'nvim-telescope/telescope.nvim',
+		config = function()
+			require('plugins/telescope')
+		end
+	}
+	use 'nvim-telescope/telescope-project.nvim'
 	-- Magit-like interface for git
 	use 'tpope/vim-fugitive'
 	use 'tpope/vim-rhubarb'
+	--
+	use 'tpope/vim-surround'
 	-- Block comments with 'gc'
-	use 'tpope/vim-commentary'
+	-- use 'tpope/vim-commentary'
 	-- Theme
 	use {'navarasu/onedark.nvim',
 		config = function()
@@ -41,25 +49,31 @@ require('packer').startup(function(use)
 	use 'hrsh7th/cmp-nvim-lsp'
 	use 'hrsh7th/cmp-buffer'
 	use 'hrsh7th/nvim-cmp'
+	--
+	-- LSP
 	use 'williamboman/nvim-lsp-installer'
 	use {'neovim/nvim-lspconfig',
 		config = function() require('nvim-lspconfig') end
 	}
-	-- LSP
 	use 'onsails/lspkind-nvim'
+	--
 	use 'nvim-treesitter/nvim-treesitter'
 	-- File tree
 	use {'kyazdani42/nvim-tree.lua',
 		requires = 'kyazdani42/nvim-web-devicons',
 		config = function() require'nvim-tree'.setup {} end
 	}
+	--
+	-- Keybinds 
 	use {'folke/which-key.nvim',
 		config = function() require('keybinds') end
 	}
+	--
 	use 'JuliaEditorSupport/julia-vim'
-	use 'axvr/zepl.vim'
 	use 'iamcco/markdown-preview.nvim'
 	use 'echasnovski/mini.nvim'
+	use 'ggandor/lightspeed.nvim'
+	use 'kassio/neoterm'
 	--Bootstrap packer
 	if packer_boostrap then
 		require('packer').sync()
@@ -70,14 +84,34 @@ end)
 -------------
 
 -- require('mini.statusline').setup({})
-require('mini.surround').setup({})
+-- require('mini.surround').setup({})
 require('mini.misc').setup({})
 require('mini.pairs').setup({})
 require('mini.sessions').setup({})
 require('mini.starter').setup({})
 require('mini.trailspace').setup({})
+require('mini.comment').setup({})
+require('mini.tabline').setup({})
+
 
 require('settings')
+
+vim.g.nvim_tree_respect_buf_cwd = 1
+
+require("nvim-tree").setup({
+  update_cwd = true,
+  -- update_focused_file = {
+  --   enable = true,
+  --   update_cwd = true
+  -- },
+  view = {
+	  mappings = {
+		  list = {
+			  {key = "<leader>-", cb = ":wincmd p<cr>", mode = "n"}
+		  }
+	  }
+  }
+})
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
@@ -169,8 +203,6 @@ cmp.setup {
     format = lspkind.cmp_format({with_text = false, maxwidth = 50})
   }
 }
-
-
 
 --Remap space as leader key
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent=true})

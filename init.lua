@@ -145,6 +145,12 @@ require("packer").startup({
 			end,
 		})
 		use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+		use({
+			"nvim-orgmode/orgmode",
+			config = function()
+				require.("plugins._orgmode")
+			end
+		})
 		--Bootstrap packer
 		if packer_boostrap then
 			require("packer").sync()

@@ -151,6 +151,7 @@ local source_names = {
 	path = "(Path)",
 	luasnip = "(Snippet)",
 	buffer = "(Buffer)",
+	orgmode = "(Org)",
 }
 local duplicates = {
 	buffer = 1,
@@ -195,6 +196,7 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "nvim_lua" },
+		{ name = "orgmode"},
 	}),
 	mapping = {
 		["<C-k>"] = cmp.mapping.select_prev_item(),

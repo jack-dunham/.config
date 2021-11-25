@@ -1,3 +1,4 @@
-plugin/
+lua/packer_compiled.lua
 *.DS_store
 lsp-julia/
+*.log

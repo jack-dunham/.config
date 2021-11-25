@@ -1,5 +1,4 @@
 local lualine = require('lualine')
-lualine.theme = 'auto'
 lualine.setup {
 	options = {
 	      	icons_enabled = true,

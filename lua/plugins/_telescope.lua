@@ -1,6 +1,5 @@
-local tele = require('telescope')
-
-tele.load_extension('project')
+-- local tele = require('telescope')
+-- tele.load_extension('project')
 -- require'telescope'.extensions.project.project{ display_type = 'full' }
 
 -- tele.setup({

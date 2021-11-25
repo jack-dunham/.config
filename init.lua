@@ -148,7 +148,7 @@ require("packer").startup({
 		use({
 			"nvim-orgmode/orgmode",
 			config = function()
-				require.("plugins._orgmode")
+				require("plugins._orgmode")
 			end
 		})
 		--Bootstrap packer

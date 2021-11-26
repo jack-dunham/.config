@@ -7,8 +7,8 @@ wk.setup({
 })
 
 wk.register({
-	e = { "<cmd>lua require('plugins._nvim-tree').toggle_tree()<cr>", "Toggle file explorer" },
-	["-"] = { "<cmd>lua require('plugins._nvim-tree').focus_tree()<cr>", "(Un)focus file explorer" },
+	e = { "<cmd>lua require('tree').toggle_tree()<cr>", "Toggle file explorer" },
+	["-"] = { "<cmd>lua require('tree').focus_tree()<cr>", "(Un)focus file explorer" },
 }, { prefix = "<leader>" })
 
 wk.register({

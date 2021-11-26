@@ -2,8 +2,6 @@
 -- LOAD PLUGINS --
 ------------------
 
-require("impatient").enable_profile()
-
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
@@ -18,6 +16,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	})
 end
 
+-- require("impatient").enable_profile()
 -- local use = require('packer').use
 
 require("packer").startup({
@@ -72,7 +71,7 @@ require("packer").startup({
 		-- 		require("plugins.onedark")
 		-- 	end,
 		-- })
-		use("folke/tokyonight.nvim")
+		use("tiagovla/tokyodark.nvim")
 		-- Status line
 		use({
 			"hoob3rt/lualine.nvim",
@@ -81,7 +80,7 @@ require("packer").startup({
 				require("plugins._lualine")
 			end,
 		})
-		use("lervag/vimtex")
+		-- use("lervag/vimtex")
 		--
 		-- Completion et al.
 		use({ "rafamadriz/friendly-snippets", event = "InsertEnter" })
@@ -117,7 +116,7 @@ require("packer").startup({
 		-- File tree
 		use({
 			"kyazdani42/nvim-tree.lua",
-			cmd = { "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
+			cmd = { "NvimTreeFindFile", "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
 			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
 				require("plugins._nvim-tree")
@@ -146,11 +145,18 @@ require("packer").startup({
 		})
 		use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
 		use({
-			"nvim-orgmode/orgmode",
+			"nvim-neorg/neorg",
+			after = "nvim-treesitter",
 			config = function()
-				require("plugins._orgmode")
-			end
+				require("plugins._neorg")
+			end,
 		})
+		-- use({
+		-- 	"nvim-orgmode/orgmode",
+		-- 	config = function()
+		-- 		require("plugins._orgmode")
+		-- 	end
+		-- })
 		--Bootstrap packer
 		if packer_boostrap then
 			require("packer").sync()
@@ -165,8 +171,8 @@ require("packer_compiled")
 -------------
 -- CONFIGS --
 -------------
-vim.g.tokyonight_style = "night"
-vim.cmd([[colorscheme tokyonight]])
+-- vim.g.tokyonight_style = "night"
+vim.cmd([[colorscheme tokyodark]])
 
 require("settings")
 

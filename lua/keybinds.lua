@@ -28,7 +28,8 @@ wk.register({
 wk.register({
 	g = {
 		name = "git",
-		g = { "<cmd>Git<cr>", "Status" },
+		g = { "<cmd>Neogit<cr>", "Status" },
+		c = { "<cmd>Neogit commit<cr>", "Open commit popup" },
 	},
 }, { prefix = "<leader>" })
 

@@ -131,7 +131,7 @@ function M.Peek(what)
 			M.floating_buf,
 			"n",
 			"<CR>",
-			":lua require('lvim.lsp.peek').open_file()<CR>",
+			":lua require('lsp.peek').open_file()<CR>",
 			{ noremap = true, silent = true }
 		)
 	else

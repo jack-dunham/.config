@@ -4,6 +4,7 @@ require("nvim-tree").setup({
 	--   enable = true,
 	--   update_cwd = true
 	-- },
+	auto_close = true,
 	view = {
 		mappings = {
 			list = {

@@ -9,7 +9,7 @@ parser_configs.norg = {
 }
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"julia", "lua", "norg"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {"julia", "lua", "css", "norg"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.

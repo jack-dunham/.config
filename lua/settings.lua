@@ -2,6 +2,11 @@ local set = vim.opt
 
 set.guifont = 'FuraCode Nerd Font Mono'
 
+--Indents
+set.tabstop=4
+set.softtabstop=4
+set.shiftwidth=4
+
 
 --Incremental live completion
 vim.o.inccommand = "nosplit"
@@ -38,3 +43,33 @@ vim.g.indent_blankline_char = "┊"
 vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile'}
 vim.g.indent_blankline_char_highlight = 'LineNr'
+
+--Remap space as leader key
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+--Remap escape to leave terminal mode
+vim.api.nvim_set_keymap("t", "<Esc>", [[<c-\><c-n>]], { noremap = true })
+
+--Add map to enter paste mode
+vim.o.pastetoggle = "<F3>"
+
+-- Toggle to disable mouse mode and indentlines for easier paste
+ToggleMouse = function()
+	if vim.o.mouse == "a" then
+		vim.cmd([[IndentBlanklineDisable]])
+		vim.wo.signcolumn = "no"
+		vim.o.mouse = "v"
+		vim.wo.number = false
+		print("Mouse disabled")
+	else
+		vim.cmd([[IndentBlanklineEnable]])
+		vim.wo.signcolumn = "yes"
+		vim.o.mouse = "a"
+		vim.wo.number = true
+		print("Mouse enabled")
+	end
+end
+
+vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua ToggleMouse()<cr>", { noremap = true })

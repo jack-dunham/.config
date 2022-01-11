@@ -16,7 +16,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	})
 end
 
--- require("impatient").enable_profile()
+require("impatient").enable_profile()
 -- local use = require('packer').use
 
 require("packer").startup({
@@ -30,7 +30,7 @@ require("packer").startup({
 			"nvim-telescope/telescope.nvim",
 			cmd = "Telescope",
 			config = function()
-				require("plugins._telescope")
+				require("plugins.telescope")
 			end,
 		})
 		--use {'nvim-telescope/telescope-project.nvim',
@@ -39,8 +39,19 @@ require("packer").startup({
 		--	cmd = 'Telescope projects',
 		--}
 		-- Magit-like interface for git
-		use("tpope/vim-fugitive")
-		use("tpope/vim-rhubarb")
+		-- use("tpope/vim-fugitive")
+		use({
+			"TimUntersberger/neogit",
+			cmd = { "Neogit", "Neogit commit" },
+			requires = "nvim-lua/plenary.nvim",
+		})
+		use({
+			"lewis6991/gitsigns.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("gitsigns").setup()
+			end,
+		})
 		--
 		use({
 			"goolord/alpha-nvim",
@@ -64,20 +75,20 @@ require("packer").startup({
 		-- Block comments with 'gc'
 		use("tpope/vim-commentary")
 		-- Theme
+		use({
+			"catppuccin/nvim",
+			as = "catppuccin",
+			config = function()
+				require("plugins.catppuccin")
+			end,
+		})
 		--
-		-- use({
-		-- 	"navarasu/onedark.nvim",
-		-- 	config = function()
-		-- 		require("plugins.onedark")
-		-- 	end,
-		-- })
-		use("tiagovla/tokyodark.nvim")
 		-- Status line
 		use({
 			"hoob3rt/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 			config = function()
-				require("plugins._lualine")
+				require("plugins.lualine")
 			end,
 		})
 		-- use("lervag/vimtex")
@@ -89,7 +100,7 @@ require("packer").startup({
 			"hrsh7th/nvim-cmp",
 			after = "LuaSnip",
 			config = function()
-				require("plugins._nvim-cmp")
+				require("plugins.nvim-cmp")
 			end,
 		})
 		use({ "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" })
@@ -110,7 +121,7 @@ require("packer").startup({
 			"nvim-treesitter/nvim-treesitter",
 			event = "BufRead",
 			config = function()
-				require("plugins._treesitter")
+				require("plugins.treesitter")
 			end,
 		})
 		-- File tree
@@ -119,7 +130,7 @@ require("packer").startup({
 			cmd = { "NvimTreeFindFile", "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
 			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
-				require("plugins._nvim-tree")
+				require("plugins.nvim-tree")
 			end,
 		})
 		--
@@ -130,17 +141,11 @@ require("packer").startup({
 				require("keybinds")
 			end,
 		})
-		--
-		-- use 'JuliaEditorSupport/julia-vim'
-		-- use {'iamcco/markdown-preview.nvim',
-		-- 	ft = 'markdown'
-		-- }
-		use("echasnovski/mini.nvim")
 		use({ "ggandor/lightspeed.nvim", event = "BufRead" })
 		use({
 			"akinsho/toggleterm.nvim",
 			config = function()
-				require("plugins._toggleterm")
+				require("plugins.toggleterm")
 			end,
 		})
 		use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
@@ -148,7 +153,15 @@ require("packer").startup({
 			"nvim-neorg/neorg",
 			after = "nvim-treesitter",
 			config = function()
-				require("plugins._neorg")
+				require("plugins.neorg")
+			end,
+		})
+		use({
+			"vimwiki/vimwiki",
+			config = function()
+				vim.g.vimwiki_list = {
+					{ path = "~/Projects/Personal/website/MyNotes", syntax = "markdown", ext = ".md" },
+				}
 			end,
 		})
 		-- use({
@@ -172,47 +185,6 @@ require("packer_compiled")
 -- CONFIGS --
 -------------
 -- vim.g.tokyonight_style = "night"
-vim.cmd([[colorscheme tokyodark]])
+vim.cmd([[colorscheme catppuccin]]) -- Finally, a good fucking theme.
 
 require("settings")
-
---Remap space as leader key
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
---Remap escape to leave terminal mode
-vim.api.nvim_set_keymap("t", "<Esc>", [[<c-\><c-n>]], { noremap = true })
-
---Add map to enter paste mode
-vim.o.pastetoggle = "<F3>"
-
--- Toggle to disable mouse mode and indentlines for easier paste
-ToggleMouse = function()
-	if vim.o.mouse == "a" then
-		vim.cmd([[IndentBlanklineDisable]])
-		vim.wo.signcolumn = "no"
-		vim.o.mouse = "v"
-		vim.wo.number = false
-		print("Mouse disabled")
-	else
-		vim.cmd([[IndentBlanklineEnable]])
-		vim.wo.signcolumn = "yes"
-		vim.o.mouse = "a"
-		vim.wo.number = true
-		print("Mouse enabled")
-	end
-end
-
-vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua ToggleMouse()<cr>", { noremap = true })
-
---config = function()
---	local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
---	require('lspconfig')['sumneko_lua'].setup {
---		capabilities = capabilities
---	}
---	require('lspconfig')['julials'].setup {
---		capabilities = capabilities
---	}
---	require('lspconfig')['texlab'].setup {
---		capabilities = capabilities

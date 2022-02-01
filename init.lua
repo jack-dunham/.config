@@ -1,7 +1,6 @@
 ------------------
 -- LOAD PLUGINS --
 ------------------
-
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
@@ -26,14 +25,49 @@ require("packer").startup({
 		-- Plenary
 		use("lewis6991/impatient.nvim")
 		use("nvim-lua/plenary.nvim")
+		use("stevearc/dressing.nvim")
+		use({
+			"j-hui/fidget.nvim",
+			config = function()
+				require("fidget").setup({})
+			end,
+		})
 		use({
 			"nvim-telescope/telescope.nvim",
-			cmd = "Telescope",
+			cmd = { "Telescope" },
+			requires = { { "nvim-lua.plenary.nvim" } },
 			config = function()
 				require("plugins.telescope")
 			end,
 		})
-		--use {'nvim-telescope/telescope-project.nvim',
+		use({
+			"nvim-telescope/telescope-project.nvim",
+			requires = "nvim-telescope/telescope.nvim",
+			-- cmd = "Telescope project",
+			fn = { "require'telescope'.extensions.project.project{}" },
+			config = function()
+				require("telescope").load_extension("project")
+			end,
+			-- wants = "telescope.nvim",
+		})
+		use({
+			"nvim-telescope/telescope-file-browser.nvim",
+			requires = "nvim-telescope/telescope.nvim",
+			fn = { "require('telescope').extensions.file_browser.file_browser{}" },
+			config = function()
+				require("telescope").load_extension("file_browser")
+			end,
+			-- wants = "telescope.nvim",
+		})
+		use({
+			"nvim-telescope/telescope-bibtex.nvim",
+			requires = "nvim-telescope/telescope.nvim",
+			cmd = "Telescope bibtex",
+			config = function()
+				require("telescope").load_extension("bibtex")
+			end,
+			-- wants = "telescope.nvim",
+		})
 		--	requires = "nvim-telescope/telescope.nvim",
 		--	after = "nvim-telescope/telescope.nvim",
 		--	cmd = 'Telescope projects',
@@ -56,7 +90,7 @@ require("packer").startup({
 		use({
 			"goolord/alpha-nvim",
 			config = function()
-				require("alpha").setup(require("alpha.themes.dashboard").opts)
+				require("plugins.alpha")
 			end,
 		})
 		use({
@@ -115,6 +149,11 @@ require("packer").startup({
 		--
 		-- LSP
 		use("williamboman/nvim-lsp-installer")
+		use({
+			"simrat39/symbols-outline.nvim",
+			cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
+			setup = require("plugins.symbols-outline").setup(),
+		})
 		--
 		--treesitter
 		use({
@@ -148,7 +187,13 @@ require("packer").startup({
 				require("plugins.toggleterm")
 			end,
 		})
-		use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+		use({
+			"romgrk/barbar.nvim",
+			requires = { "kyazdani42/nvim-web-devicons" },
+			config = function()
+				require("plugins.barbar")
+			end,
+		})
 		use({
 			"nvim-neorg/neorg",
 			after = "nvim-treesitter",
@@ -158,6 +203,7 @@ require("packer").startup({
 		})
 		use({
 			"vimwiki/vimwiki",
+			disable = false,
 			config = function()
 				vim.g.vimwiki_list = {
 					{ path = "~/Projects/Personal/website/MyNotes", syntax = "markdown", ext = ".md" },
@@ -188,3 +234,5 @@ require("packer_compiled")
 vim.cmd([[colorscheme catppuccin]]) -- Finally, a good fucking theme.
 
 require("settings")
+
+vim.g["markdown_fenced_languages"] = { "julia", "python", "lua", "tex" }

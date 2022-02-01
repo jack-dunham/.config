@@ -23,3 +23,8 @@ function _julia_include()
 		print("Buffer is not of .jl filetype. Cannot include into Julia REPL")
 	end
 end
+
+function _julia_test()
+	julia:open()
+	julia:send([[Pkg.test()]], false)
+end

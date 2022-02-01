@@ -17,9 +17,10 @@ vim.wo.colorcolumn="+1"
 
 
 wk.register({
-	t = {
-		name = 'terminal',
-		o = {"<cmd>lua _julia_toggle()<cr>", "Open julia REPL" },
-		i = {"<cmd>lua _julia_include()<cr>", "Include current file in REPL" }
+	j = {
+		name = 'Julia',
+		o = {"<cmd>lua _julia_toggle()<cr>", "Open Julia REPL" },
+		i = {"<cmd>lua _julia_include()<cr>", "Include current file in REPL" },
+		t = {"<cmd>lua _julia_test()<cr>", "Run the test suite" },
 	}
 },{prefix="<leader>", buffer=0})

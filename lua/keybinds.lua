@@ -7,6 +7,7 @@ wk.setup({
 })
 
 wk.register({
+	["<leader>"] = {"<cmd>Alpha<cr>", "Dashboard"},
 	e = { "<cmd>lua require('tree').toggle_tree()<cr>", "Toggle file explorer" },
 	["-"] = { "<cmd>lua require('tree').focus_tree()<cr>", "(Un)focus file explorer" },
 }, { prefix = "<leader>" })
@@ -47,7 +48,7 @@ wk.register({
 		name = "find",
 		f = { "<cmd>Telescope find_files<cr>", "Files" },
 		g = { "<cmd>Telescope live_grep<cr>", "Word (live)" },
-		F = { "<cmd>Telescope file_browser<cr>", "File browser" },
+		F = { "<cmd>lua require('telescope').extensions.file_browser.file_browser{}<cr>", "File browser" },
 		b = { "<cmd>Telescope buffers<cr>", "Buffers" },
 		r = { "<cmd>Telescope registers<cr>", "Registers" },
 		k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
@@ -68,11 +69,11 @@ wk.register({
 		i = { "<cmd>LspInfo<cr>", "Info" },
 		I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
 		j = {
-			"<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = lvim.lsp.popup_border}})<cr>",
+			"<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = 'rounded'})<cr>",
 			"Next Diagnostic",
 		},
 		k = {
-			"<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = lvim.lsp.popup_border}})<cr>",
+			"<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = 'rounded')<cr>",
 			"Prev Diagnostic",
 		},
 		l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
@@ -89,33 +90,33 @@ wk.register({
 			"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
 			"Workspace Symbols",
 		},
+		L = { "<cmd>lua vim.cmd('e'..vim.lsp.get_log_path())<cr>", "Open log" },
 	},
 }, { prefix = "<leader>" })
 
-
 wk.register({
-	["s"] = {"Search forwards"},
-	["S"] = {"Search backwards"},
-	["<M-,>"] = {"<cmd>BufferPrevious<cr>", "Previous"},
-	["<M-.>"] = {"<cmd>BufferNext<cr>", "Next"},
-	["<M-S-,>"] = {"<cmd>BufferMovePrevious<cr>", "Move previous"},
-	["<M-S-.>"] = {"<cmd>BufferMoveNext<cr>", "Move next"},
-	["<M-1>"] = {"<cmd>BufferGoto 1<cr>", "Buffer 1"},
-	["<M-2>"] = {"<cmd>BufferGoto 2<cr>", "Buffer 2"},
-	["<M-3>"] = {"<cmd>BufferGoto 3<cr>", "Buffer 3"},
-	["<M-4>"] = {"<cmd>BufferGoto 4<cr>", "Buffer 4"},
-	["<M-5>"] = {"<cmd>BufferGoto 5<cr>", "Buffer 5"},
-	["<M-6>"] = {"<cmd>BufferGoto 6<cr>", "Buffer 6"},
-	["<M-7>"] = {"<cmd>BufferGoto 7<cr>", "Buffer 7"},
-	["<M-8>"] = {"<cmd>BufferGoto 8<cr>", "Buffer 8"},
-	["<M-9>"] = {"<cmd>BufferGoto 9<cr>", "Buffer 9"},
-	["<M-0>"] = {"<cmd>BufferLast<cr>", "Last"},
-	["<M-c>"] = {"<cmd>BufferClose<cr>", "Close"},
-	["<C-p>"] = {"<cmd>BufferPick<cr>", "Pick"},
-	["<Space>bb"] = {"<cmd>BufferOrderByBufferNumber<cr>", "Order buffers by number"},
-	["<Space>bd"] = {"<cmd>BufferOrderByDirectory<cr>", "Order buffers by directory"},
-	["<Space>bl"] = {"<cmd>BufferOrderByLanguage<cr>", "Order buffers by langauge"},
-}, {mode = "n", noremap = true, silent = true})
+	["s"] = { "Search forwards" },
+	["S"] = { "Search backwards" },
+	["<M-,>"] = { "<cmd>BufferPrevious<cr>", "Previous" },
+	["<M-.>"] = { "<cmd>BufferNext<cr>", "Next" },
+	["<M-S-,>"] = { "<cmd>BufferMovePrevious<cr>", "Move previous" },
+	["<M-S-.>"] = { "<cmd>BufferMoveNext<cr>", "Move next" },
+	["<M-1>"] = { "<cmd>BufferGoto 1<cr>", "Buffer 1" },
+	["<M-2>"] = { "<cmd>BufferGoto 2<cr>", "Buffer 2" },
+	["<M-3>"] = { "<cmd>BufferGoto 3<cr>", "Buffer 3" },
+	["<M-4>"] = { "<cmd>BufferGoto 4<cr>", "Buffer 4" },
+	["<M-5>"] = { "<cmd>BufferGoto 5<cr>", "Buffer 5" },
+	["<M-6>"] = { "<cmd>BufferGoto 6<cr>", "Buffer 6" },
+	["<M-7>"] = { "<cmd>BufferGoto 7<cr>", "Buffer 7" },
+	["<M-8>"] = { "<cmd>BufferGoto 8<cr>", "Buffer 8" },
+	["<M-9>"] = { "<cmd>BufferGoto 9<cr>", "Buffer 9" },
+	["<M-0>"] = { "<cmd>BufferLast<cr>", "Last" },
+	["<M-c>"] = { "<cmd>BufferClose<cr>", "Close" },
+	["<C-p>"] = { "<cmd>BufferPick<cr>", "Pick" },
+	["<Space>bb"] = { "<cmd>BufferOrderByBufferNumber<cr>", "Order buffers by number" },
+	["<Space>bd"] = { "<cmd>BufferOrderByDirectory<cr>", "Order buffers by directory" },
+	["<Space>bl"] = { "<cmd>BufferOrderByLanguage<cr>", "Order buffers by langauge" },
+}, { mode = "n", noremap = true, silent = true })
 
 -- local map = vim.api.nvim_set_keymap
 -- local opts = { noremap = true, silent = true }

@@ -1,6 +1,6 @@
 local util = require("lspconfig.util")
 
--- require("lspconfig").julials.setup({})
+require("lspconfig").julials.setup({})
 
 require("lspconfig").julials.setup({
 	on_new_config = function(new_config, _)

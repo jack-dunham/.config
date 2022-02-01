@@ -1,5 +1,6 @@
 --local cmp = require'cmp'
 --local lspkind = require('lspkind')
+local ui = require('ui')
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
@@ -118,33 +119,6 @@ end
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 
-local kind_icons = {
-	Text = "",
-	Method = "",
-	Function = "",
-	Constructor = "",
-	Field = "ﰠ",
-	Variable = "",
-	Class = "ﴯ",
-	Interface = "",
-	Module = "",
-	Property = "ﰠ",
-	Unit = "塞",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "פּ",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
-}
 local source_names = {
 	nvim_lsp = "(LSP)",
 	nvim_lua = "(Lua)",
@@ -181,7 +155,8 @@ cmp.setup({
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			vim_item.kind = kind_icons[vim_item.kind]
+			-- vim_item.kind = kind_icons[vim_item.kind]
+			vim_item.kind = ui.kind_icons[vim_item.kind]
 			vim_item.menu = source_names[entry.source.name]
 			vim_item.dup = duplicates[entry.source.name] or duplicates_default
 			return vim_item

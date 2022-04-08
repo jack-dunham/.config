@@ -26,6 +26,19 @@ require("packer").startup({
 		use("lewis6991/impatient.nvim")
 		use("nvim-lua/plenary.nvim")
 		use("stevearc/dressing.nvim")
+		use("WhoIsSethDaniel/toggle-lsp-diagnostics.nvim")
+		use({
+			"rcarriga/nvim-notify",
+			config = function()
+				vim.notify = require("notify")
+			end,
+		})
+		use({
+			"karb94/neoscroll.nvim",
+			config = function()
+				require("neoscroll").setup()
+			end,
+		})
 		use({
 			"j-hui/fidget.nvim",
 			config = function()
@@ -33,9 +46,34 @@ require("packer").startup({
 			end,
 		})
 		use({
+			"folke/todo-comments.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("todo-comments").setup({})
+			end,
+		})
+		use({
+			"folke/zen-mode.nvim",
+			config = function()
+				require("zen-mode").setup({})
+			end,
+		})
+		use({
+			"folke/twilight.nvim",
+			config = function()
+				require("twilight").setup({})
+			end,
+		})
+		use({
+			"folke/trouble.nvim",
+			config = function()
+				require("trouble").setup({})
+			end,
+		})
+		use({
 			"nvim-telescope/telescope.nvim",
 			cmd = { "Telescope" },
-			requires = { { "nvim-lua.plenary.nvim" } },
+			requires = { { "plenary.nvim" } },
 			config = function()
 				require("plugins.telescope")
 			end,
@@ -74,11 +112,11 @@ require("packer").startup({
 		--}
 		-- Magit-like interface for git
 		-- use("tpope/vim-fugitive")
-		use({
-			"TimUntersberger/neogit",
-			cmd = { "Neogit", "Neogit commit" },
-			requires = "nvim-lua/plenary.nvim",
-		})
+		-- use({
+		-- 	"TimUntersberger/neogit",
+		-- 	cmd = { "Neogit", "Neogit commit" },
+		-- 	requires = "nvim-lua/plenary.nvim",
+		-- })
 		use({
 			"lewis6991/gitsigns.nvim",
 			requires = "nvim-lua/plenary.nvim",
@@ -105,10 +143,24 @@ require("packer").startup({
 				require("nvim-lspconfig")
 			end,
 		})
+		use({
+			"f3fora/nvim-texlabconfig",
+			config = function()
+				require("texlabconfig").setup({
+					cache_activate = true,
+					cache_filetypes = { "tex", "bib" },
+					cache_root = vim.fn.stdpath("cache"),
+					reverse_search_edit_cmd = "edit",
+				})
+			end,
+			ft = { "tex", "bib" },
+			cmd = { "TexlabInverseSearch" },
+		})
 		use("tpope/vim-surround")
 		-- Block comments with 'gc'
 		use("tpope/vim-commentary")
 		-- Theme
+		use("EdenEast/nightfox.nvim")
 		use({
 			"catppuccin/nvim",
 			as = "catppuccin",
@@ -129,7 +181,13 @@ require("packer").startup({
 		--
 		-- Completion et al.
 		use({ "rafamadriz/friendly-snippets", event = "InsertEnter" })
-		use({ "L3MON4D3/LuaSnip", wants = "friendly-snippets" })
+		use({
+			"L3MON4D3/LuaSnip",
+			after = "friendly-snippets",
+			config = function()
+				require("plugins.luasnip")
+			end,
+		})
 		use({
 			"hrsh7th/nvim-cmp",
 			after = "LuaSnip",
@@ -146,14 +204,15 @@ require("packer").startup({
 		use({ "hrsh7th/cmp-buffer", after = "cmp-nvim-lsp" })
 
 		use({ "hrsh7th/cmp-path", after = "cmp-buffer" })
-		--
+		use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "cmp-path" })
+		use({ "github/copilot.vim" })
 		-- LSP
 		use("williamboman/nvim-lsp-installer")
-		use({
-			"simrat39/symbols-outline.nvim",
-			cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
-			setup = require("plugins.symbols-outline").setup(),
-		})
+		-- use({
+		-- 	"simrat39/symbols-outline.nvim",
+		-- 	cmd = { "SymbolsOutline", "SymbolsOutlineOpen" },
+		-- 	setup = require("plugins.symbols-outline").setup(),
+		-- })
 		--
 		--treesitter
 		use({
@@ -168,9 +227,23 @@ require("packer").startup({
 			"kyazdani42/nvim-tree.lua",
 			cmd = { "NvimTreeFindFile", "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
 			requires = "kyazdani42/nvim-web-devicons",
+			-- commit = "d8bf1ad",
 			config = function()
 				require("plugins.nvim-tree")
 			end,
+		})
+		use({
+			"nvim-neo-tree/neo-tree.nvim",
+			branch = "v2.x",
+			requires = {
+				"nvim-lua/plenary.nvim",
+				"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+				"MunifTanjim/nui.nvim",
+			},
+			config = function()
+				require("neo-tree").setup(require("plugins.neo-tree"))
+			end,
+			cmd = {"Neotree"},
 		})
 		--
 		-- Keybinds
@@ -236,3 +309,5 @@ vim.cmd([[colorscheme catppuccin]]) -- Finally, a good fucking theme.
 require("settings")
 
 vim.g["markdown_fenced_languages"] = { "julia", "python", "lua", "tex" }
+
+vim.g.maplocalleader = ","

@@ -1,3 +1,5 @@
+local M = {}
+
 local tele = require("telescope")
 -- tele.load_extension('project')
 -- require'telescope'.extensions.project.project{ display_type = 'full' }
@@ -19,3 +21,27 @@ tele.setup({
 		display_type = "full",
 	},
 })
+
+function M.code_actions()
+  local opts = {
+    winblend = 15,
+    layout_config = {
+      prompt_position = "top",
+      width = 80,
+      height = 12,
+    },
+    borderchars = {
+      prompt = { "─", "│", " ", "│", "╭", "╮", "│", "│" },
+      results = { "─", "│", "─", "│", "├", "┤", "╯", "╰" },
+      preview = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+    },
+    border = {},
+    previewer = false,
+    shorten_path = false,
+  }
+  local lsp = require "telescope.builtin.lsp"
+  local themes = require "telescope.themes"
+  lsp.code_actions(themes.get_dropdown(opts))
+end
+
+return M

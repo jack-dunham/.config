@@ -1,6 +1,6 @@
 --local cmp = require'cmp'
 --local lspkind = require('lspkind')
-local ui = require('ui')
+local ui = require("ui")
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
@@ -125,7 +125,7 @@ local source_names = {
 	path = "(Path)",
 	luasnip = "(Snippet)",
 	buffer = "(Buffer)",
-	orgmode = "(Org)",
+	neorg = "(Neorg)",
 }
 local duplicates = {
 	buffer = 1,
@@ -167,15 +167,16 @@ cmp.setup({
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help"},
 		{ name = "luasnip" }, -- For luasnip users.
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "nvim_lua" },
-		{ name = "orgmode"},
+		{ name = "neorg" },
 	}),
 	mapping = {
-		["<C-k>"] = cmp.mapping.select_prev_item(),
-		["<C-j>"] = cmp.mapping.select_next_item(),
+		-- ["<C-k>"] = cmp.mapping.select_prev_item(),
+		-- ["<C-j>"] = cmp.mapping.select_next_item(),
 		["<C-d>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<Tab>"] = cmp.mapping(function(fallback)

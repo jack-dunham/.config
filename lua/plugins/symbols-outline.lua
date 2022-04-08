@@ -41,7 +41,7 @@ end
 
 function M.setup()
 	vim.g.symbols_outline = {
-		width = 50,
+		width = 25,
 		symbols = M.icon_config(),
 	}
 end

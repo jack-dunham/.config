@@ -4,7 +4,6 @@ require("nvim-tree").setup({
 	--   enable = true,
 	--   update_cwd = true
 	-- },
-	auto_close = true,
 	view = {
 		mappings = {
 			list = {
@@ -14,5 +13,8 @@ require("nvim-tree").setup({
 	},
 })
 
+vim.cmd [[
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]]
 
 --vim.g.nvim_tree_respect_buf_cwd = 1

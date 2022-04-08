@@ -15,8 +15,8 @@ end
 M.toggle_tree = function()
 	if not tree_ok then
 		view = M._tree_boot()
-	elseif view.win_open() then
-		require("nvim-tree").close()
+	elseif view.is_visible() then
+		require("nvim-tree").toggle()
 		require("bufferline.state").set_offset(0)
 	else
 		require("bufferline.state").set_offset(31, "File Explorer")

@@ -1,6 +1,6 @@
 local set = vim.opt
 
-set.guifont = 'FuraCode Nerd Font Mono'
+set.guifont = 'FuraMono Nerd Font Mono:h11:light'
 
 --Indents
 set.tabstop=4
@@ -17,6 +17,15 @@ vim.o.incsearch = true
 
 --Make line numbers default
 vim.wo.relativenumber = true
+
+vim.cmd([[
+set number
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" && &filetype != "tex" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END]])
 
 --Do not save when switching buffers
 vim.o.hidden = true
@@ -73,3 +82,5 @@ ToggleMouse = function()
 end
 
 vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua ToggleMouse()<cr>", { noremap = true })
+
+set.laststatus = 3

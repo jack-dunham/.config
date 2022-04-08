@@ -1,5 +1,6 @@
 local wk = require("which-key")
 
+
 wk.setup({
 	plugins = {
 		marks = false, -- shows a list of your marks on ' and `
@@ -7,7 +8,7 @@ wk.setup({
 })
 
 wk.register({
-	["<leader>"] = {"<cmd>Alpha<cr>", "Dashboard"},
+	["<leader>"] = { "<cmd>Alpha<cr>", "Dashboard" },
 	e = { "<cmd>lua require('tree').toggle_tree()<cr>", "Toggle file explorer" },
 	["-"] = { "<cmd>lua require('tree').focus_tree()<cr>", "(Un)focus file explorer" },
 }, { prefix = "<leader>" })
@@ -27,14 +28,6 @@ wk.register({
 }, { prefix = "<leader>" })
 
 wk.register({
-	g = {
-		name = "git",
-		g = { "<cmd>Neogit<cr>", "Status" },
-		c = { "<cmd>Neogit commit<cr>", "Open commit popup" },
-	},
-}, { prefix = "<leader>" })
-
-wk.register({
 	-- w = {
 	-- 	name = "window",
 	-- 	s = { "<cmd>split<cr>", "Split"},
@@ -44,6 +37,31 @@ wk.register({
 	-- 	N = { "<cmd>vnew<cr>", "Vertical new"},
 	-- 	h = { "<cmd>hide<cr>", "Hide"},
 	-- },
+	g = {
+        name = "Git",
+        j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+        k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+        l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+        p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+        r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+        R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+        s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+        u = {
+          "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+          "Undo Stage Hunk",
+        },
+        o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+        b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+        c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+        C = {
+          "<cmd>Telescope git_bcommits<cr>",
+          "Checkout commit(for current file)",
+        },
+        d = {
+          "<cmd>Gitsigns diffthis HEAD<cr>",
+          "Git Diff",
+        },
+      },
 	f = {
 		name = "find",
 		f = { "<cmd>Telescope find_files<cr>", "Files" },
@@ -56,14 +74,14 @@ wk.register({
 	},
 	l = {
 		name = "LSP",
-		a = { "<cmd>lua require('lvim.core.telescope').code_actions()<cr>", "Code Action" },
+		a = { "<cmd>lua require('plugins.telescope').code_actions()<cr>", "Code Action" },
 		d = {
-			"<cmd>Telescope lsp_document_diagnostics<cr>",
-			"Document Diagnostics",
+			"<cmd>Telescope diagnostics buffer=0 theme=get_ivy<cr>",
+			"Buffer Diagnostics",
 		},
 		w = {
-			"<cmd>Telescope lsp_workspace_diagnostics<cr>",
-			"Workspace Diagnostics",
+			"<cmd>Telescope diagnostics<cr>",
+			"Diagnostics",
 		},
 		f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
 		i = { "<cmd>LspInfo<cr>", "Info" },

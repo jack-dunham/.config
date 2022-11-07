@@ -1,6 +1,5 @@
 local wk = require("which-key")
 
-
 wk.setup({
 	plugins = {
 		marks = false, -- shows a list of your marks on ' and `
@@ -10,7 +9,10 @@ wk.setup({
 wk.register({
 	["<leader>"] = { "<cmd>Alpha<cr>", "Dashboard" },
 	e = { "<cmd>lua require('tree').toggle_tree()<cr>", "Toggle file explorer" },
+	s = { "<cmd>lua require('tree').toggle_sidebar()<cr>", "Toggle sidebar"},
+	v = { "<cmd>lua require('plugins.venn').Toggle_venn()<cr>", "Toggle Venn" },
 	["-"] = { "<cmd>lua require('tree').focus_tree()<cr>", "(Un)focus file explorer" },
+	c = { "<cmd>bd<cr>", "Close buffer"}
 }, { prefix = "<leader>" })
 
 wk.register({
@@ -38,30 +40,30 @@ wk.register({
 	-- 	h = { "<cmd>hide<cr>", "Hide"},
 	-- },
 	g = {
-        name = "Git",
-        j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-        k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-        l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
-        p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-        r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-        R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-        s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-        u = {
-          "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
-          "Undo Stage Hunk",
-        },
-        o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
-        b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
-        c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
-        C = {
-          "<cmd>Telescope git_bcommits<cr>",
-          "Checkout commit(for current file)",
-        },
-        d = {
-          "<cmd>Gitsigns diffthis HEAD<cr>",
-          "Git Diff",
-        },
-      },
+		name = "Git",
+		j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+		k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+		l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+		p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+		r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+		R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+		s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+		u = {
+			"<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+			"Undo Stage Hunk",
+		},
+		o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+		b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+		c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+		C = {
+			"<cmd>Telescope git_bcommits<cr>",
+			"Checkout commit(for current file)",
+		},
+		d = {
+			"<cmd>Gitsigns diffthis HEAD<cr>",
+			"Git Diff",
+		},
+	},
 	f = {
 		name = "find",
 		f = { "<cmd>Telescope find_files<cr>", "Files" },
@@ -119,21 +121,26 @@ wk.register({
 	["<M-.>"] = { "<cmd>BufferNext<cr>", "Next" },
 	["<M-S-,>"] = { "<cmd>BufferMovePrevious<cr>", "Move previous" },
 	["<M-S-.>"] = { "<cmd>BufferMoveNext<cr>", "Move next" },
-	["<M-1>"] = { "<cmd>BufferGoto 1<cr>", "Buffer 1" },
-	["<M-2>"] = { "<cmd>BufferGoto 2<cr>", "Buffer 2" },
-	["<M-3>"] = { "<cmd>BufferGoto 3<cr>", "Buffer 3" },
-	["<M-4>"] = { "<cmd>BufferGoto 4<cr>", "Buffer 4" },
-	["<M-5>"] = { "<cmd>BufferGoto 5<cr>", "Buffer 5" },
-	["<M-6>"] = { "<cmd>BufferGoto 6<cr>", "Buffer 6" },
-	["<M-7>"] = { "<cmd>BufferGoto 7<cr>", "Buffer 7" },
-	["<M-8>"] = { "<cmd>BufferGoto 8<cr>", "Buffer 8" },
-	["<M-9>"] = { "<cmd>BufferGoto 9<cr>", "Buffer 9" },
+	["<M-Left>"] = { "<cmd>SmartResizeLeft<cr>", "Resize left" },
+	["<M-Right>"] = { "<cmd>SmartResizeRight<cr>", "Resize right" },
+	["<M-Up>"] = { "<cmd>SmartResizeUp<cr>", "Resize up" },
+	["<M-Down>"] = { "<cmd>SmartResizeDown<cr>", "Resize down"},
+	["<M-1>"]= {"<cmd>call win_gotoid(win_getid(1))<cr>", "Window 1"},
+	["<M-2>"]= {"<cmd>call win_gotoid(win_getid(2))<cr>", "Window 2"},
+	["<M-3>"]= {"<cmd>call win_gotoid(win_getid(3))<cr>", "Window 3"},
+	["<M-4>"]= {"<cmd>call win_gotoid(win_getid(4))<cr>", "Window 4"},
+	["<M-5>"]= {"<cmd>call win_gotoid(win_getid(5))<cr>", "Window 5"},
+	["<M-6>"]= {"<cmd>call win_gotoid(win_getid(6))<cr>", "Window 6"},
+	["<M-7>"]= {"<cmd>call win_gotoid(win_getid(7))<cr>", "Window 7"},
+	["<M-8>"]= {"<cmd>call win_gotoid(win_getid(8))<cr>", "Window 8"},
+	["<M-9>"]= {"<cmd>call win_gotoid(win_getid(9))<cr>", "Window 9"},
 	["<M-0>"] = { "<cmd>BufferLast<cr>", "Last" },
 	["<M-c>"] = { "<cmd>BufferClose<cr>", "Close" },
 	["<C-p>"] = { "<cmd>BufferPick<cr>", "Pick" },
-	["<Space>bb"] = { "<cmd>BufferOrderByBufferNumber<cr>", "Order buffers by number" },
-	["<Space>bd"] = { "<cmd>BufferOrderByDirectory<cr>", "Order buffers by directory" },
-	["<Space>bl"] = { "<cmd>BufferOrderByLanguage<cr>", "Order buffers by langauge" },
+	["<C-,>"] = { "<cmd>sbn<cr>", "Split window and edit next buffer"},
+	["<Space>bi"] = { "<cmd>JABSOpen<cr>","Switch buffer interactively"},
+	["<Space>,"] = { "<cmd>bp<cr>", "Previous buffer" },
+	["<Space>."] = { "<cmd>bn<cr>", "Next buffer"},
 }, { mode = "n", noremap = true, silent = true })
 
 -- local map = vim.api.nvim_set_keymap

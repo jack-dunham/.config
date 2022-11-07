@@ -83,4 +83,6 @@ end
 
 vim.api.nvim_set_keymap("n", "<F10>", "<cmd>lua ToggleMouse()<cr>", { noremap = true })
 
+-- vim.api.nvim_set_hl(0,"NormalNC", {fg = colors.text, bg = colors.mantle})
+
 set.laststatus = 3

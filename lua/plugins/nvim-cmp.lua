@@ -155,19 +155,21 @@ cmp.setup({
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
 		format = function(entry, vim_item)
-			-- vim_item.kind = kind_icons[vim_item.kind]
 			vim_item.kind = ui.kind_icons[vim_item.kind]
+			-- vim_item.kind = string.format("%s %s", ui.kind_icons[vim_item.kind], vim_item.kind)
 			vim_item.menu = source_names[entry.source.name]
 			vim_item.dup = duplicates[entry.source.name] or duplicates_default
 			return vim_item
 		end,
 	},
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	window = {
+		documentation = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+		},
 	},
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "nvim_lsp_signature_help"},
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "luasnip" }, -- For luasnip users.
 		{ name = "buffer" },
 		{ name = "path" },

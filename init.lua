@@ -29,9 +29,9 @@ require("packer").startup({
 		use("WhoIsSethDaniel/toggle-lsp-diagnostics.nvim")
 		use({
 			"rcarriga/nvim-notify",
-			config = function()
-				vim.notify = require("notify")
-			end,
+			-- config = function()
+			-- 	vim.notify = require("notify")
+			-- end,
 		})
 		use({
 			"karb94/neoscroll.nvim",
@@ -68,6 +68,12 @@ require("packer").startup({
 			"folke/trouble.nvim",
 			config = function()
 				require("trouble").setup({})
+			end,
+		})
+		use({
+			"stevearc/aerial.nvim",
+			config = function()
+				require("plugins.aerial")
 			end,
 		})
 		use({
@@ -160,7 +166,7 @@ require("packer").startup({
 		-- Block comments with 'gc'
 		use("tpope/vim-commentary")
 		-- Theme
-		use("EdenEast/nightfox.nvim")
+		use({"Yazeed1s/oh-lucy.nvim"})
 		use({
 			"catppuccin/nvim",
 			as = "catppuccin",
@@ -168,6 +174,7 @@ require("packer").startup({
 				require("plugins.catppuccin")
 			end,
 		})
+		use({ "folke/tokyonight.nvim" })
 		--
 		-- Status line
 		use({
@@ -204,8 +211,14 @@ require("packer").startup({
 		use({ "hrsh7th/cmp-buffer", after = "cmp-nvim-lsp" })
 
 		use({ "hrsh7th/cmp-path", after = "cmp-buffer" })
-		use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "cmp-path" })
-		use({ "github/copilot.vim" })
+		-- use({ "hrsh7th/cmp-nvim-lsp-signature-help", after = "cmp-path" })
+		-- use({
+		-- 	"ray-x/lsp_signature.nvim",
+		-- 	config = function()
+		-- 		require("lsp_signature").setup({ hint_enable = false, hint_prefix = "" })
+		-- 	end,
+		-- })
+		-- use({ "github/copilot.vim" })
 		-- LSP
 		use("williamboman/nvim-lsp-installer")
 		-- use({
@@ -225,7 +238,15 @@ require("packer").startup({
 		-- File tree
 		use({
 			"kyazdani42/nvim-tree.lua",
-			cmd = { "NvimTreeFindFile", "NvimTreeOpen", "NvimTreeToggle", "NvimTreeFocus" },
+			cmd = {
+				"NvimTreeFindFile",
+				"NvimTreeOpen",
+				"NvimTreeToggle",
+				"NvimTreeFocus",
+				"NvimTreeClose",
+				"SidebarNvimClose",
+			},
+			module = { "nvim-tree.view" },
 			requires = "kyazdani42/nvim-web-devicons",
 			-- commit = "d8bf1ad",
 			config = function()
@@ -233,19 +254,14 @@ require("packer").startup({
 			end,
 		})
 		use({
-			"nvim-neo-tree/neo-tree.nvim",
-			branch = "v2.x",
-			requires = {
-				"nvim-lua/plenary.nvim",
-				"kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-				"MunifTanjim/nui.nvim",
-			},
+			"sidebar-nvim/sidebar.nvim",
+			cmd = { "SidebarNvimClose", "SidebarNvimToggle", "SidebarNvimOpen" },
+			module = { "sidebar-nvim" },
 			config = function()
-				require("neo-tree").setup(require("plugins.neo-tree"))
+				require("plugins.sidebar")
 			end,
-			cmd = {"Neotree"},
 		})
-		--
+		use("mrjones2014/smart-splits.nvim")
 		-- Keybinds
 		use({
 			"folke/which-key.nvim",
@@ -255,32 +271,66 @@ require("packer").startup({
 		})
 		use({ "ggandor/lightspeed.nvim", event = "BufRead" })
 		use({
+			"matbme/JABS.nvim",
+			config = function()
+				require("jabs").setup({})
+			end,
+		})
+		use({
 			"akinsho/toggleterm.nvim",
 			config = function()
 				require("plugins.toggleterm")
 			end,
 		})
+		-- use({
+		-- 	"romgrk/barbar.nvim",
+		-- 	requires = { "kyazdani42/nvim-web-devicons" },
+		-- 	config = function()
+		-- 		require("plugins.barbar")
+		-- 	end,
+		-- })
+		-- use({
+		-- 	"nvim-neorg/neorg",
+		-- 	after = "nvim-treesitter",
+		-- 	config = function()
+		-- 		require("plugins.neorg")
+		-- 	end,
+		-- })
+		-- use({
+		-- 	"vimwiki/vimwiki",
+		-- 	disable = false,
+		-- 	config = function()
+		-- 		vim.g.vimwiki_list = {
+		-- 			{ path = "~/Projects/Personal/website/MyNotes", syntax = "markdown", ext = ".md" },
+		-- 		}
+		-- 	end,
+		-- })
+		-- use({
+		-- 	"andreadev-it/Shade.nvim",
+		-- 	config = function()
+		-- 		require("shade").setup({
+		-- 			overlay_opacity = 50,
+		-- 			opacity_step = 1,
+		-- 			keys = {
+		-- 				brightness_up = "<C-Up>",
+		-- 				brightness_down = "<C-Down>",
+		-- 				toggle = "<Leader>s",
+		-- 			},
+		-- 			exclude_filetypes = { "NvimTree", "SidebarNvim", "aerial" }
+		-- 		})
+		-- 	end,
+		-- })
 		use({
-			"romgrk/barbar.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" },
-			config = function()
-				require("plugins.barbar")
-			end,
+			"jbyuki/venn.nvim",
 		})
 		use({
-			"nvim-neorg/neorg",
-			after = "nvim-treesitter",
+			"stevearc/stickybuf.nvim",
 			config = function()
-				require("plugins.neorg")
-			end,
-		})
-		use({
-			"vimwiki/vimwiki",
-			disable = false,
-			config = function()
-				vim.g.vimwiki_list = {
-					{ path = "~/Projects/Personal/website/MyNotes", syntax = "markdown", ext = ".md" },
-				}
+				require("stickybuf").setup({
+					buftype = {
+						terminal = "bufnr",
+					},
+				})
 			end,
 		})
 		-- use({
@@ -303,11 +353,45 @@ require("packer_compiled")
 -------------
 -- CONFIGS --
 -------------
+
 -- vim.g.tokyonight_style = "night"
-vim.cmd([[colorscheme catppuccin]]) -- Finally, a good fucking theme.
+-- vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer", "toggleterm" }
+-- vim.g.tokyonight_dark_sidebar = true
+-- vim.cmd([[colorscheme catppuccin]]) -- Finally, a good fucking theme.
 
 require("settings")
+
+vim.cmd([[colorscheme oh-lucy]])
 
 vim.g["markdown_fenced_languages"] = { "julia", "python", "lua", "tex" }
 
 vim.g.maplocalleader = ","
+
+-- vim.opt.winbar = "%{%v:lua.require'modules.winbar'.eval()%}"
+
+-- vim.opt.cmdheight = 0
+
+-- vim.cmd([[
+-- augroup signcol
+-- autocmd WinLeave * :set winhighlight=SignColumn:NormalNC
+-- autocmd WinEnter * :set winhighlight=SignColumn:Normal
+-- ]])
+
+local colors = require("catppuccin.palettes").get_palette()
+
+
+-- vim.api.nvim_set_hl(0, "WinBarSeparator", { fg = colors.blue, bg = colors.crust })
+
+vim.api.nvim_set_hl(0, "TermNormal", { bg = colors.crust })
+
+-- vim.cmd([[
+-- 	autocmd TermOpen * :set winhighlight=Normal:TermNormal,SignColumn:TermNormal,WinBar:TermNormal
+-- ]])
+
+vim.cmd([[
+	autocmd BufWinEnter * :setlocal winhighlight=Normal:Normal,SignColumn:SignColumn
+]])
+
+vim.cmd([[
+autocmd BufEnter *SidebarNvim* :set winhighlight=Normal:NvimTreeNormal,SignColumn:NvimTreeNormal | :hi link SidebarNvimNormal NvimTreeNormal
+]])

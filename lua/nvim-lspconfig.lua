@@ -10,6 +10,7 @@ end
 require("lsp/sumneko_lua")
 require("lsp/julials")
 require("lsp/texlab")
+require("lsp/ltex")
 
 require("lspconfig").tailwindcss.setup({})
 

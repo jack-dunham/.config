@@ -1,10 +1,17 @@
+-- vim.api.nvim_set_hl(0, "SidebarNvimNormal", {link="NormalSB"})
+-- vim.api.nvim_set_hl(0, "SidebarNvimNormal", {link="SignColumnSB"})
+
 require("sidebar-nvim").setup({
-	sections = { "datetime", "files", "buffers" },
-    -- files = {
-    --     icon = "",
-    --     show_hidden = false,
-    --     ignored_paths = {"%.git$"}
-    -- },
+	sections = {"git", "buffers"},
+    files = {
+        icon = "",
+        show_hidden = true,
+        ignored_paths = {"%.git$"}
+    },
+	bindings = {
+		["<S-Tab>"] = function() require('tree').toggle_tree() end ,
+		["<leader>-"] = function() vim.cmd("wincmd p") end,
+	}
     -- buffers = {
     --     icon = "",
     --     ignored_buffers = {}, -- ignore buffers by regex
@@ -12,3 +19,5 @@ require("sidebar-nvim").setup({
     --     show_numbers = true, -- whether to also show the buffer numbers
     -- }
 })
+
+-- vim.api.nvim_set_hl(0, 'SidebarNvimNormal', 'NvimTreeNormal')
